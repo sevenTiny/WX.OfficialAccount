@@ -13,9 +13,9 @@ class MaterialMgmt(AuthBase.AuthBase):
         url = 'https://api.weixin.qq.com/cgi-bin/material/add_news?access_token=' + \
             self.getAccessToken()
 
-        headers = {'content-type': 'charset=utf8'}
+        headers = {'content-type': 'application/json; charset=utf-8'}
 
-        response = requests.post(url, json=data, headers=headers).json()
+        response = requests.post(url, data=json.dumps(data, ensure_ascii=False).encode(), headers=headers).json()
 
         if 'errcode' in response:
             raise Exception(

@@ -13,16 +13,18 @@ _appSecret = ''
 # 全局过期时间
 _accessTokenExpiredTime = 1
 # 全局token
-_accessToken = '41_TP2FUJsyH8Fyd3f3A_o5j4lstWT7_2A5AIm862Vf-An0bO2Tlk1NG8vnAje8EsFypTFSyeZR6ppThbb8CFB2igN9_gZOK34nC2UBMcMkKE_r60B8QKEKnZFfdjY0oHWJhyaqSQXaouBexViaFFXaAGABBT'
+_accessToken = '41_KjCz9-kseQZUdbL3ESe5FNIzE65LJ8WOPjWovma1zSm_VQsw8ZEQ7WdzFyUj2lu3DG6bjInraEQKac9wzB4liKPR3H0wx1MLohvbe7WmkCbxHJRnvFA1USV4CVKMgeLGPwmlRfMzcVdQxml_FQSgAGAWHJ'
+
 
 class AuthBase():
     def __init__(self):
         None
 
-    def __SetAccessTokenExpiredTime(self,token):
+    def __SetAccessTokenExpiredTime(self, token):
         global _accessTokenExpiredTime, _accessToken
         _accessToken = token
-        _accessTokenExpiredTime = (datetime.datetime.now() + datetime.timedelta(hours=1)).timestamp()
+        _accessTokenExpiredTime = (
+            datetime.datetime.now() + datetime.timedelta(hours=1)).timestamp()
 
     def __checkAccessTokenHasBeenExpired(self):
         # 调试时候用，如果有手动添加的Token，则直接用即可
@@ -39,11 +41,13 @@ class AuthBase():
         if self.__checkAccessTokenHasBeenExpired() == False:
             return _accessToken
 
-        url = 'https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=' + _appid + '&secret='+ _appSecret
+        url = 'https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=' + \
+            _appid + '&secret=' + _appSecret
         response = requests.get(url).json()
         accessToken = response['access_token']
         if accessToken is not None:
             self.__SetAccessTokenExpiredTime(accessToken)
+            print('_accessToken='+_accessToken)
             return _accessToken
         else:
-            raise Exception('获取token失败：'+ json.dumps(response))
+            raise Exception('获取token失败：' + json.dumps(response))
