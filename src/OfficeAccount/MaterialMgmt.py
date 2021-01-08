@@ -1,9 +1,9 @@
-import AuthBase
+from OfficeAccount.AuthBase import AuthBase
 import requests
 import json
 
 
-class MaterialMgmt(AuthBase.AuthBase):
+class MaterialMgmt(AuthBase):
     def __init__(self):
         super().__init__()
 

@@ -1,4 +1,5 @@
 from MaterialMgmt import MaterialMgmt
+import json
 
 
 # 新增图文消息
@@ -38,17 +39,19 @@ def batchget_material():
     data = {
         "type": 'image',  # 素材的类型，图片（image）、视频（video）、语音 （voice）、图文（news）
         "offset": 0,  # 从全部素材的该偏移位置开始返回，0表示从第一个素材 返回
-        "count": 10  # 返回素材的数量，取值在1到20之间
+        "count": 20  # 返回素材的数量，取值在1到20之间
     }
 
     materialMgmt = MaterialMgmt()
 
-    materialMgmt.batchget_material(data)
+    result = materialMgmt.batchget_material(data)
 
+    # print(json.dumps(result, ensure_ascii=False))
     print('1')
 
+
 try:
-    add_news()
+    batchget_material()
 
 except Exception as e:
     print(str(e))

@@ -13,7 +13,7 @@ _appSecret = ''
 # 全局过期时间
 _accessTokenExpiredTime = 1
 # 全局token
-_accessToken = '41_KjCz9-kseQZUdbL3ESe5FNIzE65LJ8WOPjWovma1zSm_VQsw8ZEQ7WdzFyUj2lu3DG6bjInraEQKac9wzB4liKPR3H0wx1MLohvbe7WmkCbxHJRnvFA1USV4CVKMgeLGPwmlRfMzcVdQxml_FQSgAGAWHJ'
+_accessToken = '41_CuGo9dDu5FD-0atbCWRC6j32IBN7h2zoiJKv_bM-bu4swKCMlMDnjQExAfwM481gCoIa6yljFIjkyLcUySBwT-c7hJuh1hAfuQ5JFW9MBUzD9pRWMFJR_sVMbfVwWoKQgrEu7QJovYnqcQCmKCCgAIAFXX'
 
 
 class AuthBase():
