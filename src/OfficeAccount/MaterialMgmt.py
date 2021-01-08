@@ -15,7 +15,8 @@ class MaterialMgmt(AuthBase):
 
         headers = {'content-type': 'application/json; charset=utf-8'}
 
-        response = requests.post(url, data=json.dumps(data, ensure_ascii=False).encode(), headers=headers).json()
+        response = requests.post(url, data=json.dumps(
+            data, ensure_ascii=False).encode(), headers=headers).json()
 
         if 'errcode' in response:
             raise Exception(
@@ -38,3 +39,18 @@ class MaterialMgmt(AuthBase):
                 'addPermanentGraphicMaterial error:' + json.dumps(response))
 
         return response
+
+    # 上传图片并拿到mediaid
+    def uploadimg(self, imgPath):
+        url = 'https://api.weixin.qq.com/cgi-bin/media/uploadimg?access_token=' + \
+            self.getAccessToken()
+
+        files = {'media': open(imgPath, 'rb')}
+
+        response = requests.post(url, files=files).json()
+
+        if 'errcode' in response:
+            raise Exception(
+                'uploadimg error:' + json.dumps(response))
+
+        return response['url']

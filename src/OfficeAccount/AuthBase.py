@@ -7,13 +7,13 @@ import time
 # 微信公众号 appid
 _appid = 'wxa584ee2936d52516'
 # 微信公众号 appsecret
-_appSecret = ''
+_appSecret = '这里填写自己的appSecret'
 
 # ------ 内部变量 ------
 # 全局过期时间
 _accessTokenExpiredTime = 1
 # 全局token
-_accessToken = '41_CuGo9dDu5FD-0atbCWRC6j32IBN7h2zoiJKv_bM-bu4swKCMlMDnjQExAfwM481gCoIa6yljFIjkyLcUySBwT-c7hJuh1hAfuQ5JFW9MBUzD9pRWMFJR_sVMbfVwWoKQgrEu7QJovYnqcQCmKCCgAIAFXX'
+_accessToken = ''
 
 
 class AuthBase():
