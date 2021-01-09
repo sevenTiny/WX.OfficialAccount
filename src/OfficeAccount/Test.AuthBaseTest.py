@@ -7,3 +7,5 @@ class AuthBaseTest(AuthBase.AuthBase):
 
 test = AuthBaseTest()
 a = test.getAccessToken()
+# a = test.getAccessToken()
+# a = test.getAccessToken()

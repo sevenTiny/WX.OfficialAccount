@@ -11,10 +11,10 @@ import json
 try:
     # 设置本地语言环境，避免日期中文转换失败
     # locale.setlocale(locale.LC_CTYPE, 'chinese')
-    todayNian = datetime.datetime.now().strftime('%Y')+'年'
-    todayYue = datetime.datetime.now().strftime('%m')+'月'
-    todayRi = datetime.datetime.now().strftime('%m')+'月'
-    todayRi = datetime.datetime.now().strftime('%d')+'日'
+    timeNow = datetime.datetime.now()
+    todayNian = timeNow.strftime('%Y')+'年'
+    todayYue = timeNow.strftime('%m')+'月'
+    todayRi = timeNow.strftime('%d')+'日'
     todayChineseDateTime = todayNian+todayYue+todayRi
 
     # 发布
@@ -27,8 +27,8 @@ try:
     todayTitleDataList = baiduCalendar.getEventList()
 
     for item in todayTitleDataList:
-        time = item['year']+'年'+str(datetime.datetime.now().month) + \
-            '月'+str(datetime.datetime.now().day)+'日'
+        time = item['year']+'年'+str(timeNow.month) + \
+            '月'+str(timeNow.day)+'日'
         title = item['title']
         desc = item['desc']
         imgUrl = item['imgUrl']
@@ -57,6 +57,15 @@ try:
                     imgWxUrl+'" data-tools-id="14224"></section><p><br></p>'
         except Exception as e:
             print('处理图片失败：'+json.dumps(e))
+
+    # 从每日百度百科突出数据提取今日标题，默认为今日日期
+    postTitle = todayChineseDateTime
+    if len(todayTitleDataList) > 0:
+        todayData = todayTitleDataList[0]
+        time = item['year']+'年'+str(timeNow.month) + \
+            '月'+str(timeNow.day)+'日'
+        title = item['title']
+        postTitle = time + ', ' + title
 
     # 2. 从历史上的今天站点获取历史上的今天数据
     lssdjtCrawler = LssdjtCrawler()
@@ -87,7 +96,7 @@ try:
     data = {
         "articles": [
             {
-                "title": '历史上的今天',
+                "title": postTitle,
                 "thumb_media_id": 'wtRD-hkcDxLQTNW6np17fCjXCgeEMG5CbMvPtG27rRw',
                 "author": '7tiny',
                 "digest": todayChineseDateTime,
@@ -108,4 +117,4 @@ try:
 
 except Exception as e:
     print('发送失败！！！')
-    print(str(e))
+    print(json.dumps(e, ensure_ascii=False))

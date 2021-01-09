@@ -51,10 +51,10 @@ class BaiduCalendar():
 
         for item in current:
             list.append({
-                'year': item['year'],
-                'title': self.__removeA(item['title']),
+                'year': item['year'].replace('\n',''),
+                'title': self.__removeA(item['title']).replace('\n',''),
                 'imgUrl': item['pic_share'],
-                'desc': self.__removeA(item['desc'])
+                'desc': self.__removeA(item['desc']).replace('\n','')
             })
 
         return list

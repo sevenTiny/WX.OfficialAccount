@@ -7,9 +7,9 @@ import time
 # 微信公众号 appid
 _appid = 'wxa584ee2936d52516'
 # 微信公众号 appsecret
-_appSecret = '这里填写自己的appSecret'
+_appSecret = ''
 
-# ------ 内部变量 ------
+# ------ 内部变量无需配置 ------
 # 全局过期时间
 _accessTokenExpiredTime = 1
 # 全局token
@@ -27,11 +27,12 @@ class AuthBase():
             datetime.datetime.now() + datetime.timedelta(hours=1)).timestamp()
 
     def __checkAccessTokenHasBeenExpired(self):
+        global _accessTokenExpiredTime, _accessToken
+
         # 调试时候用，如果有手动添加的Token，则直接用即可
-        if _accessToken.strip() != '':
+        if _accessToken.strip() != '' and _accessTokenExpiredTime == 1:
             return False
 
-        global _accessTokenExpiredTime
         if _accessTokenExpiredTime == 1 or _accessTokenExpiredTime < time.time():
             return True
         else:
