@@ -45,10 +45,10 @@ class AuthBase():
         url = 'https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=' + \
             _appid + '&secret=' + _appSecret
         response = requests.get(url).json()
+        print(response)
         accessToken = response['access_token']
         if accessToken is not None:
             self.__SetAccessTokenExpiredTime(accessToken)
-            print('_accessToken='+_accessToken)
             return _accessToken
         else:
             raise Exception('获取token失败：' + json.dumps(response))
