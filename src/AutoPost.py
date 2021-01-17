@@ -1,14 +1,21 @@
 from OfficeAccount.MaterialMgmt import MaterialMgmt
 from Crawler.LssdjtCrawler import LssdjtCrawler
 from Crawler.BaiduCalendar import BaiduCalendar
+from Crawler.IpAddressQuery import IpAddressQuery
 import datetime
 import locale
 import random
 import requests
 import os
 import json
+import sys
 
 try:
+    # 先拿ip显示
+    ipAddressQuery = IpAddressQuery()
+    print(ipAddressQuery.getCurrentIp(), flush=True)
+    # sys.stdout.flush()
+
     # 设置本地语言环境，避免日期中文转换失败
     # locale.setlocale(locale.LC_CTYPE, 'chinese')
     timeNow = datetime.datetime.now()
@@ -40,13 +47,13 @@ try:
         try:
             # 下载并上传图片
             imgFilePath = os.path.basename(imgUrl)
-            print('download pic from:' + imgUrl)
+            print('download pic from:' + imgUrl, flush=True)
             if os.path.exists(imgFilePath):
                 os.remove(imgFilePath)
 
             baiduCalendar.request_download(imgUrl, imgFilePath)
             imgWxUrl = materialMgmt.uploadimg(imgFilePath)
-            print('upload pic to:'+imgWxUrl)
+            print('upload pic to:'+imgWxUrl, flush=True)
 
             if os.path.exists(imgFilePath):
                 os.remove(imgFilePath)
@@ -56,7 +63,7 @@ try:
                 content = content + '<section style="margin:0 15px 20px;border:3px solid #fff;border-radius:3px;box-sizing:border-box"><img style="display:block;max-width:100%;width:100%!important" src="' + \
                     imgWxUrl+'" data-tools-id="14224"></section><p><br></p>'
         except Exception as e:
-            print('处理图片失败：'+json.dumps(e))
+            print('处理图片失败：'+json.dumps(e), flush=True)
 
     # 从每日百度百科突出数据提取今日标题，默认为今日日期
     postTitle = todayChineseDateTime
@@ -72,7 +79,7 @@ try:
     historyList = lssdjtCrawler.getEventList()
 
     count = len(historyList)
-    print(todayChineseDateTime+'共找到'+str(count)+'条今日历史')
+    print(todayChineseDateTime+'共找到'+str(count)+'条今日历史', flush=True)
     indexRange = range(0, count)
     # 最多显示数量
     queryCount = 15
@@ -112,9 +119,9 @@ try:
 
     media_id = materialMgmt.add_news(data)
 
-    print(str(media_id))
-    print('发送成功！')
+    print(str(media_id), flush=True)
+    print('发送成功！', flush=True)
 
 except Exception as e:
-    print('发送失败！！！')
-    print(json.dumps(e, ensure_ascii=False))
+    print('发送失败！！！', flush=True)
+    print(json.dumps(e, ensure_ascii=False), flush=True)
